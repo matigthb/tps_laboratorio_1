@@ -137,47 +137,6 @@ int sortPassengers(sPassenger passengerList[], int size, int order)
 	return retorno;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-
-int printPassengers(sPassenger passengerList[], int size, sStatusFlight statusFlight[], int sizeStatus,sTypePassenger typePassenger[], int sizeType, char mensaje[])
-{
-	int retorno=-1;
-
-	printf("\n%s\n\n"
-	           " ___________________________________________________________________________________________________________________\n"
-	           "|%-5s|%-15s|%-15s|%-13s|%-21s|%-20s|%-20s|\n"
-	           "|=====|===============|===============|=============|=====================|====================|====================|", mensaje, "ID", "Nombre", "Apellido", "Precio", "Tipo de pasajero", "Estado de Vuelo", "Codigo de vuelo");
-
-	for(int i=0;i<size;i++)
-	{
-		if(passengerList[i].isEmpty == OCUPADO)
-		{
-			mostrarUnPasajero(passengerList[i], statusFlight, sizeStatus, typePassenger, sizeType);
-			retorno = 0;
-		}
-	}
-
-	printf("\n|_____|_______________|_______________|_____________|_____________________|____________________|____________________|\n");
-	return retorno;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////
-
-int BuscarEspacioLibre(sPassenger passengerList[], int size)
-{
-	int index;
-	index = -1; ///Por default no hay ninguno cargado;
-	for(int i=0; i<size; i++)
-	{
-		if(passengerList[i].isEmpty != OCUPADO)
-		{
-			index = i;
-			break;
-		}
-	}
-
-	return index;
-}
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
