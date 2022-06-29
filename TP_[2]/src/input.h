@@ -66,4 +66,5 @@ int ConfirmarEntero(char numeros[]);
 /// @return indice de validacion, (0 por OK, -1 por caracter no deseado)
 int DetectarEspeciales(char cadena[]);
 
+
 #endif /* INPUT_H_ */

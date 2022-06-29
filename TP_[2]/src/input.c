@@ -82,12 +82,22 @@ int ConfirmarCadena(char cadena[])
     int size = strlen(cadena);
     int validacion=-1;
 
-    for(int i=0;i<size;i++)
+    if(size == 0)
     {
-        if((isdigit(cadena[i]) && isalpha(cadena[i])) == 0)
-        {
-            validacion=0;
-        }
+    	validacion = 0;
+    }
+    else
+    {
+    	if(size>0)
+    	{
+			for(int i=0;i<size;i++)
+			{
+				if(isdigit(cadena[i]) || isalpha(cadena[i]) == 0)
+				{
+					validacion=0;
+				}
+			}
+    	}
     }
 
     return validacion;
@@ -114,13 +124,24 @@ int ConfirmarFloat(char numeros[])
 
     size = strlen(numeros);
 
-    for(int i=0;i<size;i++)
+    if(size==0)
     {
-        if((numeros[i]<48 || numeros[i]>57) && numeros[i] != 46 )
-        {
-            validacion=-1;
-        }
+    	validacion = -1;
     }
+    else
+    {
+    	if(size > 0)
+    	{
+			for(int i=0;i<size;i++)
+			{
+				if((numeros[i]<48 || numeros[i]>57) && numeros[i] != 46 )
+				{
+					validacion=-1;
+				}
+			}
+    	}
+    }
+
     return validacion;
 }
 
@@ -132,12 +153,15 @@ int ConfirmarEntero(char numeros[])
     size = strlen(numeros);
 
     for(int i=0;i<size;i++)
-    {
-        if(numeros[i] < 48 || numeros[i] > 57)
-        {
-            validacion=-1;
-        }
-    }
+	{
+		if(isdigit(numeros[i]) == 0)
+		{
+			validacion=-1;
+			break;
+		}
+	}
+
+
     return validacion;
 }
 
@@ -146,11 +170,21 @@ int DetectarEspeciales(char cadena[])
 	int retorno = 0;
 	int size = strlen(cadena);
 
-	for(int i=0;i<size;i++)
+	if(size==0)
 	{
-		if(!(cadena[i] > 65 && cadena[i] < 90) && !(cadena[i] > 97 && cadena[i] < 122) && !(cadena[i]>=48 && cadena[i]<=57))
+		retorno = -1;
+	}
+	else
+	{
+		if(size>0)
 		{
-			retorno=-1;
+			for(int i=0;i<size;i++)
+			{
+				if((isdigit(cadena[i]) == 0) && (isalpha(cadena[i]) == 0))
+				{
+					retorno=-1;
+				}
+			}
 		}
 	}
 

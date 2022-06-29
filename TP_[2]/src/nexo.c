@@ -21,6 +21,8 @@ sPassenger pedirPasajero(sPassenger unPasajero, sStatusFlight statusList[], int 
 	}
 	DetectarEspacio(unPasajero.name);
 
+	fflush(stdin);
+
 	CargarCadena(unPasajero.lastName, "Ingrese su apellido: ");
 	retorno = ConfirmarCadena(unPasajero.lastName);
 	while(retorno == 0)
@@ -32,6 +34,14 @@ sPassenger pedirPasajero(sPassenger unPasajero, sStatusFlight statusList[], int 
 
 	unPasajero.price = IngresarFlotante("Ingrese el precio del viaje: ", "ERROR, ingrese un precio valido (de 0 a 2.000.000)", 0, 2000000);
 	CargarCadena(unPasajero.flycode, "Ingrese su código de vuelo: ");
+
+	retorno = DetectarEspeciales(unPasajero.flycode);
+	while(retorno == -1)
+	{
+		CargarCadena(unPasajero.flycode, "Flycode inválido, ingrese uno nuevo: ");
+		retorno = DetectarEspeciales(unPasajero.flycode);
+	}
+
 	printf("ESTADOS DE VUELO:\n");
 	StatusFlight(statusList, sizeStatus);
 	unPasajero.statusFlight = IngresarEntero("Ingrese el estado del vuelo (Del 1 al 4): ", "Dato inválido, ingrese un estado correcto", 1, 4);
@@ -178,7 +188,7 @@ void MostrarPromedios(sPassenger passengerList[], int size, sStatusFlight status
 		           "|=====|===============|===============|=============|=====================|====================|====================|", "ID", "Nombre", "Apellido", "Precio", "Tipo de pasajero", "Estado de Vuelo", "Codigo de vuelo");
 
 
-	for(int i;i<size;i++)
+	for(int i=0;i<size;i++)
 	{
 		if(passengerList[i].price > promedioPasajeros && passengerList[i].isEmpty == OCUPADO)
 		{

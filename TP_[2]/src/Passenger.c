@@ -5,6 +5,7 @@
  *      Author: MATI
  */
 #include "Passenger.h"
+#include "ArrayPassenger.h"
 
 int BuscarEspacioLibre(sPassenger passengerList[], int size)
 {
@@ -21,7 +22,6 @@ int BuscarEspacioLibre(sPassenger passengerList[], int size)
 
 	return index;
 }
-
 
 int modificarPasajero(sPassenger passengerList[], int size, int id)
 {
@@ -76,13 +76,13 @@ int modificarPasajero(sPassenger passengerList[], int size, int id)
 		{
 			case 1:
 				CargarCadena(nameaux,"Ingrese el nuevo nombre: \n");
-				validacion = ValidarCadena(nameaux);
+				validacion = ConfirmarCadena(nameaux);
 				while(validacion==0)
 				{
 					printf("Ingrese su nombre (solo letras): \n");
 					fflush(stdin);
 					gets(nameaux);
-					validacion= ValidarCadena(nameaux);
+					validacion= ConfirmarCadena(nameaux);
 				}
 				strcpy(passengerList[index].name,nameaux);
 				printf("El nombre del pasajero con ID:%d fue modificado correctamente. (nuevo nombre: %s)\n", id, nameaux);
@@ -90,11 +90,11 @@ int modificarPasajero(sPassenger passengerList[], int size, int id)
 
 			case 2:
 				CargarCadena(lastNameaux,"Ingrese el nuevo apellido: \n");
-				validacion= ValidarCadena(lastNameaux);
+				validacion= ConfirmarCadena(lastNameaux);
 				while(validacion==0)
 				{
 					CargarCadena(lastNameaux,"Apellido inválido, ingrese uno nuevo: \n");
-					validacion= ValidarCadena(lastNameaux);
+					validacion= ConfirmarCadena(lastNameaux);
 				}
 				strcpy(passengerList[index].lastName,lastNameaux);
 				printf("El apellido del pasajero con ID:%d fue modificado correctamente. (Nuevo apellido: %s)\n", id, lastNameaux);
@@ -126,9 +126,9 @@ int modificarPasajero(sPassenger passengerList[], int size, int id)
 			case 5:
 				CargarCadena(flycode,"Ingrese el nuevo código de vuelo: \n");
 				validacion= DetectarEspeciales(flycode);
-				while(validacion==0)
+				while(validacion==-1)
 				{
-					CargarCadena(flycode,"Apellido inválido, ingrese uno nuevo: \n");
+					CargarCadena(flycode,"Flycode inválido, ingrese uno nuevo: \n");
 					validacion= DetectarEspeciales(flycode);
 				}
 				strcpy(passengerList[index].lastName,flycode);
